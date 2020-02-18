@@ -342,8 +342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0864edf03f0f14883b8ad48128fd4a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reactionTime: 10
   mousePosition: {x: 0, y: 0, z: 0}
-  reactionSpeed: 5
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +451,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubeObject: {fileID: 2096103257879621230, guid: 634c7e1e4d09f45218511f6b6cd3c628,
     type: 3}
-  cubesToCreateX: 45
-  cubesToCreateY: 30
+  cubesToCreateX: 43
+  cubesToCreateY: 25
   posZ: 30
