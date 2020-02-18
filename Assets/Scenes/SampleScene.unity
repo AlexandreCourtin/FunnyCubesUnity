@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mousePosition: {x: 0, y: 0, z: 0}
-  reactionSpeed: 2
+  reactionSpeed: 5
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +451,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubeObject: {fileID: 2096103257879621230, guid: 634c7e1e4d09f45218511f6b6cd3c628,
     type: 3}
-  cubesToCreateX: 30
-  cubesToCreateY: 20
+  cubesToCreateX: 45
+  cubesToCreateY: 30
   posZ: 30
