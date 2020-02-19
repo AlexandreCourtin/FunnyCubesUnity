@@ -6,7 +6,8 @@ public class CuriousCube : MonoBehaviour
 {
 	public Vector2 relativeMousePosition;
 	public float mouseDiff;
-	public float speed = 1f;
+	public float fadeIn = 4f;
+	public float fadeOut = .1f;
 	public float redIntensity = .5f;
 	public float greenIntensity = .7f;
 	public float blueIntensity = .1f;
@@ -45,13 +46,16 @@ public class CuriousCube : MonoBehaviour
 			greenIntensity = .75f;
 			blueIntensity = .25f;
 		}
+
+		clampScaleColorValues();
+		updateCubeVisuals();
 	}
 
 	void Update() {
 		isClicking = Input.GetMouseButton(0);
 
-		mouseDiff = (100f - (Mathf.Pow(Mathf.Abs(relativeMousePosition.x), 4f)
-			+ Mathf.Pow(Mathf.Abs(relativeMousePosition.y), 4f))) * .06f;
+		mouseDiff = (100f - (Mathf.Pow(Mathf.Abs(relativeMousePosition.x), 6f)
+			+ Mathf.Pow(Mathf.Abs(relativeMousePosition.y), 6f))) * .06f;
 		if (mouseDiff < 0f)
 			mouseDiff = 0f;
 
@@ -60,6 +64,21 @@ public class CuriousCube : MonoBehaviour
 	}
 
 	void FixedUpdate() {
+		// CLAMP VALUES
+		clampScaleColorValues();
+
+		if (isClicking && mouseDiff > 0f) {
+			mouseDiffScale += mouseDiff * fadeIn * Time.fixedDeltaTime;
+			mouseDiffColor += mouseDiff * fadeIn * Time.fixedDeltaTime;
+			updateCubeVisuals();
+		} else if (mouseDiffScale > 0f) {
+			mouseDiffColor -= fadeOut * Time.fixedDeltaTime;
+			mouseDiffScale -= fadeOut * Time.fixedDeltaTime;
+			updateCubeVisuals();
+		}
+	}
+
+	void updateCubeVisuals() {
 		// ROTATION
 		transform.eulerAngles = new Vector3((relativeMousePosition.y * 2), (-relativeMousePosition.x * 2), 0f);
 
@@ -68,18 +87,15 @@ public class CuriousCube : MonoBehaviour
 		cubeAnimator.SetFloat("Y", relativeMousePosition.y);
 
 		// SCALE
-		if (isClicking) mouseDiffScale += mouseDiff * 4f * Time.fixedDeltaTime;
-		mouseDiffScale -= .1f * Time.fixedDeltaTime;
-		mouseDiffScale = Mathf.Clamp(mouseDiffScale, .5f, 1.6f);
 		transform.localScale = new Vector3(mouseDiffScale, mouseDiffScale, mouseDiffScale);
 
 		// COLORS
-		if (isClicking) mouseDiffColor += mouseDiff * 4f * Time.fixedDeltaTime;
-		mouseDiffColor -= .1f * Time.fixedDeltaTime;
-		mouseDiffColor = Mathf.Clamp(mouseDiffColor, .2f, 1f);
 		Color newColor = new Color(mouseDiffColor * redIntensity, mouseDiffColor * greenIntensity, mouseDiffColor * blueIntensity, 1f);
 		cubeMat.SetColor("_Color", newColor);
+	}
 
-
+	void clampScaleColorValues() {
+		mouseDiffScale = Mathf.Clamp(mouseDiffScale, 0f, 1.6f);
+		mouseDiffColor = Mathf.Clamp(mouseDiffColor, .2f, 1f);
 	}
 }

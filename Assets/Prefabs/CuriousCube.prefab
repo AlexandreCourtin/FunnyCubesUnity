@@ -149,10 +149,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   relativeMousePosition: {x: 0, y: 0}
   mouseDiff: 0
-  speed: 0.1
+  fadeIn: 4
+  fadeOut: 0.5
   redIntensity: 0.25
   greenIntensity: 0.5
   blueIntensity: 0.75
+  mouseDiffScale: 0
+  mouseDiffColor: 0
+  isClicking: 0
+  isRightClicking: 0
 --- !u!1 &2096103258040414603
 GameObject:
   m_ObjectHideFlags: 0
